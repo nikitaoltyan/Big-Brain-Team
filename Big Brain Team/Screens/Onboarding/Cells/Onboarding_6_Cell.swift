@@ -29,17 +29,23 @@ class Onboarding_6_Cell: UICollectionViewCell {
         return label
     }()
     
+    let underPhoneFieldView: UIView = {
+        let view = UIView()
+            .with(autolayout: false)
+            .with(bgColor: Colors.primary1)
+            .with(cornerRadius: 20)
+        view.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
     lazy var phoneField: UITextField = {
         let view = UITextField()
             .with(autolayout: false)
-            .with(cornerRadius: 20)
             .with(keybordType: .phonePad)
             .with(placeholder: "+7 XXX XXX XX")
             .with(fontName: "HelveticaNeue", size: 18)
         view.delegate = self
         view.textColor = Colors.textPrimary
-        view.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
-        view.layer.borderWidth = 1
         return view
     }()
     
@@ -138,6 +144,7 @@ extension Onboarding_6_Cell {
     func setSubviews() {
         self.addSubview(backButton)
         self.addSubview(title)
+        self.addSubview(underPhoneFieldView)
         self.addSubview(phoneField)
         self.addSubview(subtitle)
         self.addSubview(nextButton)
@@ -158,8 +165,13 @@ extension Onboarding_6_Cell {
             title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24),
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
             
-            phoneField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
-            phoneField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            underPhoneFieldView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
+            underPhoneFieldView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            underPhoneFieldView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            underPhoneFieldView.heightAnchor.constraint(equalToConstant: 52),
+            
+            phoneField.topAnchor.constraint(equalTo: underPhoneFieldView.topAnchor),
+            phoneField.leftAnchor.constraint(equalTo: underPhoneFieldView.leftAnchor, constant: 16),
             phoneField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
             phoneField.heightAnchor.constraint(equalToConstant: 52),
             

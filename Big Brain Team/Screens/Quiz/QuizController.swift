@@ -30,14 +30,25 @@ class QuizController: UIViewController {
         return label
     }()
     
-    let progressTitle: UILabel = {
+    let currentMoney: UILabel = {
         let label = UILabel()
             .with(autolayout: false)
             .with(color: Colors.textPrimary)
             .with(alignment: .center)
-            .with(numberOfLines: 0)
+            .with(numberOfLines: 1)
             .with(fontName: "HelveticaNeue-Medium", size: 20)
-        label.text = "Задание 1 из 5"
+        label.text = "100 000 ₽"
+        return label
+    }()
+    
+    let balanceLabel: UILabel = {
+        let label = UILabel()
+            .with(autolayout: false)
+            .with(color: Colors.textSecondary)
+            .with(alignment: .center)
+            .with(numberOfLines: 1)
+            .with(fontName: "HelveticaNeue", size: 15)
+        label.text = "Баланс"
         return label
     }()
     
@@ -93,9 +104,12 @@ class QuizController: UIViewController {
     }()
     
     var isButtonActive = false
+    var isAnswersShown = false
     var currentSelectedIndexPath: IndexPath?
+    var collectionHeightConstraint: NSLayoutConstraint?
     
     let answers = ["Продам всё", "Куплю ещё акций", "Продам часть", "Подожду"]
+    let rightCell = [false, false, false, true]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,10 +129,16 @@ class QuizController: UIViewController {
     
     @objc
     func checkResultAction() {
+        print("checkResultAction")
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
             // TODO:
             // Add checking result.
+            self.isAnswersShown = true
+            self.collectionHeightConstraint?.constant += 60
+            self.collection.layoutIfNeeded()
+            self.scrollView.contentSize = CGSize(width: MainConstants.screenWidth, height: MainConstants.screenHeight + 60)
+            self.collection.reloadData()
         })
     }
 }
@@ -135,12 +155,24 @@ extension QuizController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: MainConstants.screenWidth-50, height: 48)
+        if !isButtonActive {
+            return CGSize(width: MainConstants.screenWidth-50, height: 48)
+        } else {
+            if currentSelectedIndexPath != indexPath {
+                return CGSize(width: MainConstants.screenWidth-50, height: 48)
+            } else {
+                return CGSize(width: MainConstants.screenWidth-50, height: 108)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: "QuizCell", for: indexPath) as! QuizCell
         cell.title.text = answers[indexPath.row]
+        let isTapped = (indexPath == currentSelectedIndexPath)
+        cell.setCell(isCellRight: rightCell[indexPath.row],
+                     isTapped: isTapped,
+                     isAnswersShown: self.isAnswersShown)
         return cell
     }
     
@@ -171,13 +203,15 @@ extension QuizController {
     func setSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(closeButton)
-        scrollView.addSubview(progressTitle)
+        scrollView.addSubview(currentMoney)
+        scrollView.addSubview(balanceLabel)
         scrollView.addSubview(qustionTitle)
         scrollView.addSubview(chart)
         scrollView.addSubview(collection)
         scrollView.addSubview(nextButton)
         
         closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeAction)))
+        nextButton.addTarget(self, action: #selector(checkResultAction), for: .touchUpInside)
     }
     
     private
@@ -188,13 +222,16 @@ extension QuizController {
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
             closeButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             
-            progressTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            progressTitle.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            currentMoney.topAnchor.constraint(equalTo: view.topAnchor, constant: 46),
+            currentMoney.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            qustionTitle.topAnchor.constraint(equalTo: progressTitle.bottomAnchor, constant: 35),
+            balanceLabel.topAnchor.constraint(equalTo: currentMoney.bottomAnchor, constant: 2),
+            balanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            qustionTitle.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 26),
             qustionTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
             qustionTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24),
             
@@ -206,12 +243,14 @@ extension QuizController {
             collection.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 16),
             collection.leftAnchor.constraint(equalTo: view.leftAnchor),
             collection.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collection.heightAnchor.constraint(equalToConstant: 230),
             
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            nextButton.topAnchor.constraint(equalTo: collection.bottomAnchor, constant: 30),
             nextButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
             nextButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24),
             nextButton.heightAnchor.constraint(equalToConstant: 56),
         ])
+        
+        collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 230)
+        collectionHeightConstraint?.isActive = true
     }
 }

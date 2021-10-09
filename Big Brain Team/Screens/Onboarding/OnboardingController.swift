@@ -122,7 +122,7 @@ extension OnboardingController: onbordingDelegate {
     func finish() {
         analytic.logFinishOnboarding()
         UserDefaults.standard.set(true, forKey: "hasLaunched")
-        let newVC = MainController()
+        let newVC = QuizController()
         newVC.modalPresentationStyle = .fullScreen
         present(newVC, animated: true, completion: nil)
     }

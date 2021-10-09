@@ -67,8 +67,14 @@ class Onboarding_5_Cell: UICollectionViewCell {
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
     
-//    let shareName: [String] = ["Appl"]
-//    let
+    let shareName: [String] = ["Facebook Inc", "Alphabet Inc Class A", "Netflix Inc", "Amazon", "Tesla", "Microsoft"]
+    let sharePercent: [String] = ["20%", "10%", "5%", "16%", "40%", "17%"]
+    let shareImage: [UIImage?] = [UIImage(named: "1"),
+                                 UIImage(named: "2"),
+                                 UIImage(named: "3"),
+                                 UIImage(named: "4"),
+                                 UIImage(named: "5"),
+                                 UIImage(named: "6")]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,7 +113,7 @@ class Onboarding_5_Cell: UICollectionViewCell {
 extension Onboarding_5_Cell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return shareName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -116,6 +122,9 @@ extension Onboarding_5_Cell: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingStockCell", for: indexPath) as! OnboardingStockCell
+        cell.title.text = shareName[indexPath.row]
+        cell.percentage.text = sharePercent[indexPath.row]
+        cell.image.image = shareImage[indexPath.row]
         return cell
     }
     
@@ -171,7 +180,7 @@ extension Onboarding_5_Cell {
             collection.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
             collection.leftAnchor.constraint(equalTo: title.leftAnchor, constant: -4),
             collection.rightAnchor.constraint(equalTo: title.rightAnchor, constant: 4),
-            collection.heightAnchor.constraint(equalToConstant: 400),
+            collection.heightAnchor.constraint(equalToConstant: 550),
             
             nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
             nextButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24),
