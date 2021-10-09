@@ -20,7 +20,6 @@
 		5C17D4602710C52500035051 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D45F2710C52500035051 /* Vibration.swift */; };
 		5C17D4622710D6E700035051 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4612710D6E700035051 /* Colors.swift */; };
 		5C17D4642710D74900035051 /* MainConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4632710D74900035051 /* MainConstants.swift */; };
-		5C17D4692710D91C00035051 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4682710D91C00035051 /* MainController.swift */; };
 		5C17D46C2710DA8C00035051 /* Onboarding_1_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D46B2710DA8C00035051 /* Onboarding_1_Cell.swift */; };
 		5C17D46E2710DACD00035051 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D46D2710DACD00035051 /* UILabel+Extension.swift */; };
 		5C17D4702710DFF200035051 /* Onboarding_2_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D46F2710DFF200035051 /* Onboarding_2_Cell.swift */; };
@@ -29,7 +28,6 @@
 		5C17D47627114A6B00035051 /* OnboardingTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D47527114A6B00035051 /* OnboardingTextCell.swift */; };
 		5C17D4782711580D00035051 /* OnboardingStockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4772711580D00035051 /* OnboardingStockCell.swift */; };
 		5C17D47A271175D000035051 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D479271175D000035051 /* UITextField+Extension.swift */; };
-		5C17D47C27117F3500035051 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D47B27117F3400035051 /* QuizView.swift */; };
 		5C17D47F271187C300035051 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D47E271187C300035051 /* Analytics.swift */; };
 		5C17D481271195B000035051 /* Onboarding_3_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D480271195B000035051 /* Onboarding_3_Cell.swift */; };
 		5C17D483271195C200035051 /* Onboarding_4_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D482271195C200035051 /* Onboarding_4_Cell.swift */; };
@@ -78,7 +76,6 @@
 		5C17D45F2710C52500035051 /* Vibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		5C17D4612710D6E700035051 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5C17D4632710D74900035051 /* MainConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainConstants.swift; sourceTree = "<group>"; };
-		5C17D4682710D91C00035051 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		5C17D46B2710DA8C00035051 /* Onboarding_1_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_1_Cell.swift; sourceTree = "<group>"; };
 		5C17D46D2710DACD00035051 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		5C17D46F2710DFF200035051 /* Onboarding_2_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_2_Cell.swift; sourceTree = "<group>"; };
@@ -87,7 +84,6 @@
 		5C17D47527114A6B00035051 /* OnboardingTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTextCell.swift; sourceTree = "<group>"; };
 		5C17D4772711580D00035051 /* OnboardingStockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStockCell.swift; sourceTree = "<group>"; };
 		5C17D479271175D000035051 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		5C17D47B27117F3400035051 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		5C17D47E271187C300035051 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		5C17D480271195B000035051 /* Onboarding_3_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_3_Cell.swift; sourceTree = "<group>"; };
 		5C17D482271195C200035051 /* Onboarding_4_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_4_Cell.swift; sourceTree = "<group>"; };
@@ -222,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				5C17D4862711B11E00035051 /* Quiz */,
-				5C17D4672710D8E400035051 /* Main */,
 				5C17D4662710D7D000035051 /* Onboarding */,
 			);
 			path = Screens;
@@ -235,15 +230,6 @@
 				5C17D46A2710DA6500035051 /* Cells */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		5C17D4672710D8E400035051 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				5C17D4682710D91C00035051 /* MainController.swift */,
-				5C17D47B27117F3400035051 /* QuizView.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		5C17D46A2710DA6500035051 /* Cells */ = {
@@ -288,7 +274,6 @@
 				241C19FA578524934C4DBD14 /* Pods-Big Brain TeamTests.debug.xcconfig */,
 				729C1D47FF5E573ED32194F4 /* Pods-Big Brain TeamTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -542,12 +527,10 @@
 				5C17D47F271187C300035051 /* Analytics.swift in Sources */,
 				5C17D45B2710C3B300035051 /* UIView+Extension.swift in Sources */,
 				5C17D481271195B000035051 /* Onboarding_3_Cell.swift in Sources */,
-				5C17D4692710D91C00035051 /* MainController.swift in Sources */,
 				5C17D4622710D6E700035051 /* Colors.swift in Sources */,
 				5C17D4882711BB4D00035051 /* QuizCell.swift in Sources */,
 				5C17D4742710E01200035051 /* Onboarding_6_Cell.swift in Sources */,
 				5C17D45D2710C41C00035051 /* UIViewController+Extension.swift in Sources */,
-				5C17D47C27117F3500035051 /* QuizView.swift in Sources */,
 				5C17D4782711580D00035051 /* OnboardingStockCell.swift in Sources */,
 				5C17D4702710DFF200035051 /* Onboarding_2_Cell.swift in Sources */,
 				5C17D4602710C52500035051 /* Vibration.swift in Sources */,

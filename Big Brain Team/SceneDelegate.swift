@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Big Brain Team
 //
-//  Created by Никита Олтян on 08.10.2021.
+//  Created by Nick Oltyan on 08.10.2021.
 //
 
 import UIKit
@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
             if (hasLaunched) {
-                window.rootViewController = MainController()
+                window.rootViewController = QuizController()
 //                window.rootViewController = OnboardingController()
             } else {
                 window.rootViewController = OnboardingController()

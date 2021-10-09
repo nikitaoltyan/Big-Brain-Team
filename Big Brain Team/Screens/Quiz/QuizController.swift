@@ -27,6 +27,7 @@ class QuizController: UIViewController {
             .with(fontName: "HelveticaNeue", size: 17)
         label.isUserInteractionEnabled = true
         label.text = "Закрыть"
+        label.isHidden = true
         return label
     }()
     
@@ -132,12 +133,20 @@ class QuizController: UIViewController {
         print("checkResultAction")
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-            // TODO:
-            // Add checking result.
+            
             self.isAnswersShown = true
-            self.collectionHeightConstraint?.constant += 60
-            self.collection.layoutIfNeeded()
-            self.scrollView.contentSize = CGSize(width: MainConstants.screenWidth, height: MainConstants.screenHeight + 60)
+            self.collection.isUserInteractionEnabled = false
+            self.nextButton.setTitle("Следующий вопрос", for: .normal)
+            
+            if let index = self.rightCell.firstIndex(of: true) {
+                if self.currentSelectedIndexPath?.row != index {
+                    self.collectionHeightConstraint?.constant = 300
+                    self.collection.layoutIfNeeded()
+                    self.nextButton.layoutIfNeeded()
+                    self.scrollView.contentSize = CGSize(width: MainConstants.screenWidth,
+                                                         height: MainConstants.screenHeight + 60)
+                }
+            }
             self.collection.reloadData()
         })
     }
@@ -161,7 +170,7 @@ extension QuizController: UICollectionViewDelegate, UICollectionViewDataSource, 
             if currentSelectedIndexPath != indexPath {
                 return CGSize(width: MainConstants.screenWidth-50, height: 48)
             } else {
-                return CGSize(width: MainConstants.screenWidth-50, height: 108)
+                return CGSize(width: MainConstants.screenWidth-50, height: 118)
             }
         }
     }
@@ -222,10 +231,10 @@ extension QuizController {
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
-            closeButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            closeButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 55),
+            closeButton.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
             
-            currentMoney.topAnchor.constraint(equalTo: view.topAnchor, constant: 46),
+            currentMoney.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 46),
             currentMoney.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             balanceLabel.topAnchor.constraint(equalTo: currentMoney.bottomAnchor, constant: 2),

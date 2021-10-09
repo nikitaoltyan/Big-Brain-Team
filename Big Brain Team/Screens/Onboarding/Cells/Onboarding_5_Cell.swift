@@ -38,9 +38,9 @@ class Onboarding_5_Cell: UICollectionViewCell {
         layout.minimumInteritemSpacing = 16
         
         collection.isPagingEnabled = false
-        collection.isScrollEnabled = false
+        collection.isScrollEnabled = true
         collection.backgroundColor = .clear
-        collection.showsHorizontalScrollIndicator = false
+        collection.showsVerticalScrollIndicator = false
         collection.delegate = self
         collection.dataSource = self
         

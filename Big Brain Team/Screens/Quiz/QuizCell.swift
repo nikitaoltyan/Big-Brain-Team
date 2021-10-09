@@ -73,6 +73,7 @@ class QuizCell: UICollectionViewCell {
     }
     
     func setCell(isCellRight right: Bool, isTapped tapped: Bool, isAnswersShown shown: Bool) {
+        print("isCellRight \(right), isTapped \(tapped), isAnswersShown \(shown)")
         guard shown else {
             loseLabel.isHidden = true
             loseExplainLabel.isHidden = true
@@ -86,6 +87,8 @@ class QuizCell: UICollectionViewCell {
                 loseLabel.isHidden = true
                 loseExplainLabel.isHidden = true
             } else {
+                viewBG.layer.borderColor = Colors.negative.cgColor
+                title.textColor = Colors.negative
                 loseLabel.isHidden = false
                 loseExplainLabel.isHidden = false
             }
@@ -96,6 +99,8 @@ class QuizCell: UICollectionViewCell {
                 loseLabel.isHidden = true
                 loseExplainLabel.isHidden = true
             } else {
+                viewBG.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
+                title.textColor = Colors.textPrimary
                 loseLabel.isHidden = true
                 loseExplainLabel.isHidden = true
             }
