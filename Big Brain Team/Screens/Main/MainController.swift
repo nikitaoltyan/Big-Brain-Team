@@ -13,7 +13,7 @@ class MainController: UIViewController {
         let label = UILabel()
             .with(autolayout: false)
             .with(color: Colors.textPrimary)
-            .with(alignment: .left)
+            .with(alignment: .center)
             .with(numberOfLines: 1)
             .with(fontName: "HelveticaNeue-Medium", size: 28)
         label.text = "100 000 ₽"
@@ -23,11 +23,11 @@ class MainController: UIViewController {
     let progressLabel: UILabel = {
         let label = UILabel()
             .with(autolayout: false)
-            .with(color: Colors.textSecondary)
-            .with(alignment: .left)
+            .with(color: .red)
+            .with(alignment: .center)
             .with(numberOfLines: 1)
             .with(fontName: "HelveticaNeue", size: 15)
-        label.text = "Пройдено 6 из 12 уровней"
+        label.text = "– 9 712 ₽ (9,7 %)"
         return label
     }()
     
@@ -66,10 +66,10 @@ extension MainController {
     func activateLayouts() {
         NSLayoutConstraint.activate([
             moneyLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 73),
-            moneyLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
+            moneyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             progressLabel.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 6),
-            progressLabel.leftAnchor.constraint(equalTo: moneyLabel.leftAnchor),
+            progressLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             quizView.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 24),
             quizView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),

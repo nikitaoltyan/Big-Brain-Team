@@ -1,14 +1,13 @@
 //
-//  Onboarding_5_Cell.swift
+//  Onboarding_4_Cell.swift
 //  Big Brain Team
 //
-//  Created by Nick Oltyan on 09.10.2021.
+//  Created by Nick Oltyan on 08.10.2021.
 //
-
 
 import UIKit
 
-class Onboarding_3_Cell: UICollectionViewCell {
+class Onboarding_6_Cell: UICollectionViewCell {
     
     let backButton: UIImageView = {
         let button = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 29))
@@ -26,29 +25,33 @@ class Onboarding_3_Cell: UICollectionViewCell {
             .with(alignment: .left)
             .with(numberOfLines: 0)
             .with(fontName: "HelveticaNeue-Bold", size: 28)
-        label.text = "Чего ты хочешь достичь?"
+        label.text = "Последний шаг: номер телефона"
         return label
     }()
     
-    lazy var collection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    lazy var phoneField: UITextField = {
+        let view = UITextField()
             .with(autolayout: false)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 16
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        
-        collection.isPagingEnabled = false
-        collection.isScrollEnabled = false
-        collection.backgroundColor = .clear
-        collection.showsHorizontalScrollIndicator = false
-        collection.delegate = self
-        collection.dataSource = self
-        
-        collection.register(OnboardingTextCell.self, forCellWithReuseIdentifier: "OnboardingTextCell")
-        
-        return collection
+            .with(cornerRadius: 20)
+            .with(keybordType: .phonePad)
+            .with(placeholder: "+7 XXX XXX XX")
+            .with(fontName: "HelveticaNeue", size: 18)
+        view.delegate = self
+        view.textColor = Colors.textPrimary
+        view.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
+    
+    let subtitle: UILabel = {
+        let label = UILabel()
+            .with(autolayout: false)
+            .with(color: Colors.textSecondary)
+            .with(alignment: .left)
+            .with(numberOfLines: 1)
+            .with(fontName: "HelveticaNeue", size: 13)
+        label.text = "Без номера мы не сможем подарить акцию"
+        return label
     }()
     
     let nextButton: UIButton = {
@@ -65,10 +68,10 @@ class Onboarding_3_Cell: UICollectionViewCell {
     }()
     
     
-    let cells = ["Накопить денег", "Спекулировать", "Избегать инфляцию", "Зарабатывать"]
     var isButtonActive = false
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,15 +89,15 @@ class Onboarding_3_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addInterest(<#T##interest: Int##Int#>)
-            self.delegate?.next(slide: 3)
+            self.delegate?.addPhone(self.phoneField.text ?? "NaN")
+            self.delegate?.finish()
         })
     }
     
     @objc
     func backAction() {
         backButton.tap(completion: { _ in
-            self.delegate?.next(slide: 1)
+            self.delegate?.next(slide: 4)
         })
     }
 }
@@ -104,35 +107,20 @@ class Onboarding_3_Cell: UICollectionViewCell {
 
 
 
-extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cells.count
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingTextCell", for: indexPath) as! OnboardingTextCell
-        cell.title.text = cells[indexPath.row]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Vibration.soft()
-        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingTextCell {
-            cell.unselect()
-        }
-        
-        if let cell = collection.cellForItem(at: indexPath) as? OnboardingTextCell {
-            cell.select()
+
+extension Onboarding_6_Cell: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.count ?? 0 < 11 {
+            isButtonActive = false
+            nextButton.alpha = 0.7
+            return true
+        } else {
             isButtonActive = true
             nextButton.alpha = 1
-            // TODO:
-            // Add here some action for selected answer.
-            currentSelectedIndexPath = indexPath
+            self.delegate?.endEditing()
+            return false
         }
     }
-    
 }
 
 
@@ -140,12 +128,13 @@ extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSourc
 
 
 
-extension Onboarding_3_Cell {
+extension Onboarding_6_Cell {
     private
     func setSubviews() {
         self.addSubview(backButton)
         self.addSubview(title)
-        self.addSubview(collection)
+        self.addSubview(phoneField)
+        self.addSubview(subtitle)
         self.addSubview(nextButton)
         
         nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
@@ -164,10 +153,13 @@ extension Onboarding_3_Cell {
             title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24),
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
             
-            collection.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
-            collection.leftAnchor.constraint(equalTo: title.leftAnchor),
-            collection.rightAnchor.constraint(equalTo: title.rightAnchor),
-            collection.heightAnchor.constraint(equalToConstant: 400),
+            phoneField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
+            phoneField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            phoneField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            phoneField.heightAnchor.constraint(equalToConstant: 52),
+            
+            subtitle.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 8),
+            subtitle.leftAnchor.constraint(equalTo: phoneField.leftAnchor),
             
             nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
             nextButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24),

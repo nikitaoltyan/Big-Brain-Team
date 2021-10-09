@@ -20,6 +20,24 @@ class QuizView: UIView {
         return label
     }()
     
+    let progressLabel: UILabel = {
+        let label = UILabel()
+            .with(autolayout: false)
+            .with(color: Colors.textSecondary)
+            .with(alignment: .left)
+            .with(numberOfLines: 1)
+            .with(fontName: "HelveticaNeue", size: 15)
+        label.text = "Уровень 6 из 12"
+        return label
+    }()
+    
+    let stock: UIImageView = {
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 295, height: 121))
+            .with(autolayout: false)
+        image.image = UIImage(named: "stock_price")
+        return image
+    }()
+    
     let button: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 287, height: 56))
             .with(autolayout: false)
@@ -34,7 +52,7 @@ class QuizView: UIView {
     
 
     override init(frame: CGRect) {
-        let useFrame = CGRect(x: 0, y: 0, width: 0, height: 289)
+        let useFrame = CGRect(x: 0, y: 0, width: 0, height: 318)
         super.init(frame: useFrame)
         self.backgroundColor = Colors.primary1
         self.layer.cornerRadius = 32
@@ -63,6 +81,8 @@ extension QuizView {
     private
     func setSubviews() {
         self.addSubview(questionLabel)
+        self.addSubview(progressLabel)
+        self.addSubview(stock)
         self.addSubview(button)
         
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
@@ -74,6 +94,14 @@ extension QuizView {
             questionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             questionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24),
             questionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
+            
+            progressLabel.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 12),
+            progressLabel.leftAnchor.constraint(equalTo: questionLabel.leftAnchor),
+            
+            stock.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 5),
+            stock.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stock.heightAnchor.constraint(equalToConstant: stock.frame.height),
+            stock.widthAnchor.constraint(equalToConstant: stock.frame.width),
             
             button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             button.centerXAnchor.constraint(equalTo: self.centerXAnchor),

@@ -1,14 +1,13 @@
 //
-//  Onboarding_5_Cell.swift
+//  Onboarding_3_Cell.swift
 //  Big Brain Team
 //
-//  Created by Nick Oltyan on 09.10.2021.
+//  Created by Nick Oltyan on 08.10.2021.
 //
-
 
 import UIKit
 
-class Onboarding_3_Cell: UICollectionViewCell {
+class Onboarding_5_Cell: UICollectionViewCell {
     
     let backButton: UIImageView = {
         let button = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 29))
@@ -26,7 +25,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
             .with(alignment: .left)
             .with(numberOfLines: 0)
             .with(fontName: "HelveticaNeue-Bold", size: 28)
-        label.text = "Чего ты хочешь достичь?"
+        label.text = "Выбери 5 акций для портфеля"
         return label
     }()
     
@@ -35,9 +34,8 @@ class Onboarding_3_Cell: UICollectionViewCell {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
             .with(autolayout: false)
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 12
+        layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
         collection.isPagingEnabled = false
         collection.isScrollEnabled = false
@@ -46,7 +44,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
         collection.delegate = self
         collection.dataSource = self
         
-        collection.register(OnboardingTextCell.self, forCellWithReuseIdentifier: "OnboardingTextCell")
+        collection.register(OnboardingStockCell.self, forCellWithReuseIdentifier: "OnboardingStockCell")
         
         return collection
     }()
@@ -65,7 +63,6 @@ class Onboarding_3_Cell: UICollectionViewCell {
     }()
     
     
-    let cells = ["Накопить денег", "Спекулировать", "Избегать инфляцию", "Зарабатывать"]
     var isButtonActive = false
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
@@ -86,15 +83,15 @@ class Onboarding_3_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addInterest(<#T##interest: Int##Int#>)
-            self.delegate?.next(slide: 3)
+//            self.delegate?.addShare(<#T##share: Int##Int#>)
+            self.delegate?.next(slide: 5)
         })
     }
     
     @objc
     func backAction() {
         backButton.tap(completion: { _ in
-            self.delegate?.next(slide: 1)
+            self.delegate?.next(slide: 3)
         })
     }
 }
@@ -104,26 +101,28 @@ class Onboarding_3_Cell: UICollectionViewCell {
 
 
 
-extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Onboarding_5_Cell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cells.count
+        return 4
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: MainConstants.screenWidth-50, height: 68)
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingTextCell", for: indexPath) as! OnboardingTextCell
-        cell.title.text = cells[indexPath.row]
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingStockCell", for: indexPath) as! OnboardingStockCell
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Vibration.soft()
-        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingTextCell {
+        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingStockCell {
             cell.unselect()
         }
         
-        if let cell = collection.cellForItem(at: indexPath) as? OnboardingTextCell {
+        if let cell = collection.cellForItem(at: indexPath) as? OnboardingStockCell {
             cell.select()
             isButtonActive = true
             nextButton.alpha = 1
@@ -140,7 +139,9 @@ extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSourc
 
 
 
-extension Onboarding_3_Cell {
+
+
+extension Onboarding_5_Cell {
     private
     func setSubviews() {
         self.addSubview(backButton)
@@ -165,8 +166,8 @@ extension Onboarding_3_Cell {
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
             
             collection.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
-            collection.leftAnchor.constraint(equalTo: title.leftAnchor),
-            collection.rightAnchor.constraint(equalTo: title.rightAnchor),
+            collection.leftAnchor.constraint(equalTo: title.leftAnchor, constant: -4),
+            collection.rightAnchor.constraint(equalTo: title.rightAnchor, constant: 4),
             collection.heightAnchor.constraint(equalToConstant: 400),
             
             nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),
