@@ -25,4 +25,8 @@ class ServerAnalytics {
         ])
     }
     
+    func logRestart() {
+        Analytics.logEvent("restart", parameters: [:])
+    }
+    
 }

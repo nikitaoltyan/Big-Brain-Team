@@ -8,6 +8,7 @@ target 'Big Brain Team' do
 
   # Pods for Big Brain Team
 pod 'Firebase/Analytics'
+pod 'lottie-ios'
 
   target 'Big Brain TeamTests' do
     inherit! :search_paths

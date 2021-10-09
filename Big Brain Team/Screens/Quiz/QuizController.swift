@@ -53,17 +53,16 @@ class QuizController: UIViewController {
         return label
     }()
     
-    let educationBook: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+    let educationBook: UILabel = {
+        let label = UILabel()
             .with(autolayout: false)
-            .with(bgColor: .clear)
-        let image = UIImage(systemName: "graduationcap.fill")?.withRenderingMode(.alwaysTemplate)
-        button.contentHorizontalAlignment = .fill
-        button.contentVerticalAlignment = .fill
-        button.imageView?.contentMode = .scaleAspectFill
-        button.setImage(image, for: .normal)
-        button.tintColor = Colors.blue
-        return button
+            .with(color: Colors.blue)
+            .with(alignment: .right)
+            .with(numberOfLines: 1)
+            .with(fontName: "HelveticaNeue", size: 17)
+        label.isUserInteractionEnabled = true
+        label.text = "Учебник"
+        return label
     }()
     
     let qustionTitle: UILabel = {
@@ -155,7 +154,13 @@ class QuizController: UIViewController {
     func checkResultAction() {
         print("checkResultAction")
         guard isButtonActive else { return }
+        Vibration.soft()
         nextButton.tap(completion: { _ in
+            guard !self.isAnswersShown else {
+//                self.openLoseController()
+                self.openWinController()
+                return
+            }
             
             self.isAnswersShown = true
             self.collection.isUserInteractionEnabled = false
@@ -172,6 +177,20 @@ class QuizController: UIViewController {
             }
             self.collection.reloadData()
         })
+    }
+    
+    private
+    func openLoseController() {
+        let newVC = QuizEndController()
+        newVC.modalPresentationStyle = .fullScreen
+        self.present(newVC, animated: true, completion: nil)
+    }
+    
+    private
+    func openWinController() {
+        let newVC = QuizWinController()
+        newVC.modalPresentationStyle = .fullScreen
+        self.present(newVC, animated: true, completion: nil)
     }
 }
 
@@ -243,7 +262,7 @@ extension QuizController {
         
         closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeAction)))
         nextButton.addTarget(self, action: #selector(checkResultAction), for: .touchUpInside)
-        educationBook.addTarget(self, action: #selector(openEducation), for: .touchUpInside)
+        educationBook.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openEducation)))
     }
     
     private
@@ -263,10 +282,8 @@ extension QuizController {
             balanceLabel.topAnchor.constraint(equalTo: currentMoney.bottomAnchor, constant: 2),
             balanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            educationBook.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            educationBook.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13),
             educationBook.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
-            educationBook.heightAnchor.constraint(equalToConstant: educationBook.frame.height),
-            educationBook.widthAnchor.constraint(equalToConstant: educationBook.frame.width),
             
             qustionTitle.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 26),
             qustionTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
