@@ -10,6 +10,10 @@ import UIKit
 protocol onbordingDelegate {
     func next(slide: Int)
     func finish()
+    func addInterest(_ interest: Int)
+    func addShare(_ share: Int)
+    func addPhone(_ phoneNumber: String)
+    func endEditing()
 }
 
 
@@ -40,7 +44,8 @@ class OnboardingController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
+        view.backgroundColor = Colors.primary1
         setSubviews()
         activateLayouts()
     }
@@ -92,7 +97,6 @@ extension OnboardingController: UICollectionViewDelegate, UICollectionViewDataSo
 
 
 extension OnboardingController: onbordingDelegate {
-
     func next(slide: Int) {
         Vibration.soft()
         collection.isPagingEnabled = true
@@ -108,6 +112,25 @@ extension OnboardingController: onbordingDelegate {
         let newVC = MainController()
         newVC.modalPresentationStyle = .fullScreen
         present(newVC, animated: true, completion: nil)
+    }
+    
+    func addInterest(_ interest: Int) {
+        // TODO:
+        // Add interest
+    }
+    
+    func addShare(_ share: Int) {
+        // TODO:
+        // Add share
+    }
+    
+    func addPhone(_ phoneNumber: String) {
+        // TODO:
+        // Add phone number
+    }
+    
+    func endEditing() {
+        view.endEditing(true)
     }
 }
 

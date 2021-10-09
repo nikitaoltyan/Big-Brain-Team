@@ -26,6 +26,9 @@
 		5C17D4702710DFF200035051 /* Onboarding_2_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D46F2710DFF200035051 /* Onboarding_2_Cell.swift */; };
 		5C17D4722710E00500035051 /* Onboarding_3_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4712710E00500035051 /* Onboarding_3_Cell.swift */; };
 		5C17D4742710E01200035051 /* Onboarding_4_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4732710E01200035051 /* Onboarding_4_Cell.swift */; };
+		5C17D47627114A6B00035051 /* OnboardingTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D47527114A6B00035051 /* OnboardingTextCell.swift */; };
+		5C17D4782711580D00035051 /* OnboardingStockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4772711580D00035051 /* OnboardingStockCell.swift */; };
+		5C17D47A271175D000035051 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D479271175D000035051 /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,9 @@
 		5C17D46F2710DFF200035051 /* Onboarding_2_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_2_Cell.swift; sourceTree = "<group>"; };
 		5C17D4712710E00500035051 /* Onboarding_3_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_3_Cell.swift; sourceTree = "<group>"; };
 		5C17D4732710E01200035051 /* Onboarding_4_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_4_Cell.swift; sourceTree = "<group>"; };
+		5C17D47527114A6B00035051 /* OnboardingTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTextCell.swift; sourceTree = "<group>"; };
+		5C17D4772711580D00035051 /* OnboardingStockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStockCell.swift; sourceTree = "<group>"; };
+		5C17D479271175D000035051 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,7 @@
 				5C17D45A2710C3B300035051 /* UIView+Extension.swift */,
 				5C17D45C2710C41C00035051 /* UIViewController+Extension.swift */,
 				5C17D46D2710DACD00035051 /* UILabel+Extension.swift */,
+				5C17D479271175D000035051 /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -201,6 +208,8 @@
 				5C17D46F2710DFF200035051 /* Onboarding_2_Cell.swift */,
 				5C17D4712710E00500035051 /* Onboarding_3_Cell.swift */,
 				5C17D4732710E01200035051 /* Onboarding_4_Cell.swift */,
+				5C17D47527114A6B00035051 /* OnboardingTextCell.swift */,
+				5C17D4772711580D00035051 /* OnboardingStockCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -346,9 +355,12 @@
 				5C17D4622710D6E700035051 /* Colors.swift in Sources */,
 				5C17D4742710E01200035051 /* Onboarding_4_Cell.swift in Sources */,
 				5C17D45D2710C41C00035051 /* UIViewController+Extension.swift in Sources */,
+				5C17D4782711580D00035051 /* OnboardingStockCell.swift in Sources */,
 				5C17D4702710DFF200035051 /* Onboarding_2_Cell.swift in Sources */,
 				5C17D4602710C52500035051 /* Vibration.swift in Sources */,
+				5C17D47627114A6B00035051 /* OnboardingTextCell.swift in Sources */,
 				5C17D42C2710C1E200035051 /* SceneDelegate.swift in Sources */,
+				5C17D47A271175D000035051 /* UITextField+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

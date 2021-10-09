@@ -8,10 +8,24 @@
 import UIKit
 
 class MainController: UIViewController {
+    
+//    let moneyLabel: UILabel = {
+//        
+//    }()
+//    
+//    let progressLabel: UILabel = {
+//        
+//    }()
+    
+//    let quizView: U = {
+//
+//    }()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        view.backgroundColor = Colors.primary1
         setSubviews()
         activateLayouts()
     }
