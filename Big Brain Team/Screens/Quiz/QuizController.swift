@@ -53,6 +53,19 @@ class QuizController: UIViewController {
         return label
     }()
     
+    let educationBook: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            .with(autolayout: false)
+            .with(bgColor: .clear)
+        let image = UIImage(systemName: "graduationcap.fill")?.withRenderingMode(.alwaysTemplate)
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFill
+        button.setImage(image, for: .normal)
+        button.tintColor = Colors.blue
+        return button
+    }()
+    
     let qustionTitle: UILabel = {
         let label = UILabel()
             .with(autolayout: false)
@@ -128,6 +141,16 @@ class QuizController: UIViewController {
         })
     }
     
+    
+    @objc
+    func openEducation() {
+        educationBook.tap(completion: { _ in
+            guard let url = URL(string: "https://broker.vtb.ru/learning/azbuka/") else { return }
+            UIApplication.shared.open(url)
+        })
+    }
+    
+    
     @objc
     func checkResultAction() {
         print("checkResultAction")
@@ -195,8 +218,6 @@ extension QuizController: UICollectionViewDelegate, UICollectionViewDataSource, 
             cell.select()
             isButtonActive = true
             nextButton.alpha = 1
-            // TODO:
-            // Add here some action for selected answer.
             currentSelectedIndexPath = indexPath
         }
     }
@@ -214,6 +235,7 @@ extension QuizController {
         scrollView.addSubview(closeButton)
         scrollView.addSubview(currentMoney)
         scrollView.addSubview(balanceLabel)
+        scrollView.addSubview(educationBook)
         scrollView.addSubview(qustionTitle)
         scrollView.addSubview(chart)
         scrollView.addSubview(collection)
@@ -221,6 +243,7 @@ extension QuizController {
         
         closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeAction)))
         nextButton.addTarget(self, action: #selector(checkResultAction), for: .touchUpInside)
+        educationBook.addTarget(self, action: #selector(openEducation), for: .touchUpInside)
     }
     
     private
@@ -239,6 +262,11 @@ extension QuizController {
             
             balanceLabel.topAnchor.constraint(equalTo: currentMoney.bottomAnchor, constant: 2),
             balanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            educationBook.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            educationBook.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            educationBook.heightAnchor.constraint(equalToConstant: educationBook.frame.height),
+            educationBook.widthAnchor.constraint(equalToConstant: educationBook.frame.width),
             
             qustionTitle.topAnchor.constraint(equalTo: balanceLabel.bottomAnchor, constant: 26),
             qustionTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),

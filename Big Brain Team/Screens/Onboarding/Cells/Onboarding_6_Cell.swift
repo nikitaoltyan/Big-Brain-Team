@@ -119,6 +119,7 @@ extension Onboarding_6_Cell: UITextFieldDelegate {
         if textField.text?.count ?? 0 > 10 {
             isButtonActive = true
             nextButton.alpha = 1
+            self.delegate?.endEditing()
             return true
         }
         if textField.text?.count ?? 0 < 11 {

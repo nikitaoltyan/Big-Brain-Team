@@ -85,6 +85,7 @@ class OnboardingStockCell: UICollectionViewCell {
     }
     
     func select() {
+        Vibration.soft()
         title.textColor = Colors.blue
         self.layer.borderColor = Colors.blue.cgColor
     }
