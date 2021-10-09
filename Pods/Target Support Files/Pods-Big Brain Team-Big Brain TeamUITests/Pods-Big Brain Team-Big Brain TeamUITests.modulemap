@@ -1,0 +1,6 @@
+framework module Pods_Big_Brain_Team_Big_Brain_TeamUITests {
+  umbrella header "Pods-Big Brain Team-Big Brain TeamUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
