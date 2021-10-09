@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol mainDelegate {
+    func openQuiz()
+}
+
 class MainController: UIViewController {
     
     let moneyLabel: UILabel = {
@@ -31,9 +35,10 @@ class MainController: UIViewController {
         return label
     }()
     
-    let quizView: QuizView = {
+    lazy var quizView: QuizView = {
         let view = QuizView()
             .with(autolayout: false)
+        view.delegate = self
         return view
     }()
     
@@ -49,6 +54,17 @@ class MainController: UIViewController {
 }
 
 
+
+
+
+extension MainController: mainDelegate {
+    func openQuiz() {
+        let newVC = QuizController()
+        newVC.modalPresentationStyle = .fullScreen
+        newVC.modalTransitionStyle = .coverVertical
+        present(newVC, animated: true, completion: nil)
+    }
+}
 
 
 

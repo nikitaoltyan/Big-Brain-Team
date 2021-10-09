@@ -33,6 +33,8 @@
 		5C17D47F271187C300035051 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D47E271187C300035051 /* Analytics.swift */; };
 		5C17D481271195B000035051 /* Onboarding_3_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D480271195B000035051 /* Onboarding_3_Cell.swift */; };
 		5C17D483271195C200035051 /* Onboarding_4_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D482271195C200035051 /* Onboarding_4_Cell.swift */; };
+		5C17D4852711B11A00035051 /* QuizController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4842711B11A00035051 /* QuizController.swift */; };
+		5C17D4882711BB4D00035051 /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4872711BB4C00035051 /* QuizCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		5C17D47E271187C300035051 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		5C17D480271195B000035051 /* Onboarding_3_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_3_Cell.swift; sourceTree = "<group>"; };
 		5C17D482271195C200035051 /* Onboarding_4_Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_4_Cell.swift; sourceTree = "<group>"; };
+		5C17D4842711B11A00035051 /* QuizController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizController.swift; sourceTree = "<group>"; };
+		5C17D4872711BB4C00035051 /* QuizCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +191,7 @@
 		5C17D4652710D7C900035051 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5C17D4862711B11E00035051 /* Quiz */,
 				5C17D4672710D8E400035051 /* Main */,
 				5C17D4662710D7D000035051 /* Onboarding */,
 			);
@@ -232,6 +237,15 @@
 				5C17D47E271187C300035051 /* Analytics.swift */,
 			);
 			path = Server;
+			sourceTree = "<group>";
+		};
+		5C17D4862711B11E00035051 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				5C17D4842711B11A00035051 /* QuizController.swift */,
+				5C17D4872711BB4C00035051 /* QuizCell.swift */,
+			);
+			path = Quiz;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +380,7 @@
 			files = (
 				5C17D483271195C200035051 /* Onboarding_4_Cell.swift in Sources */,
 				5C17D46E2710DACD00035051 /* UILabel+Extension.swift in Sources */,
+				5C17D4852711B11A00035051 /* QuizController.swift in Sources */,
 				5C17D4722710E00500035051 /* Onboarding_5_Cell.swift in Sources */,
 				5C17D4642710D74900035051 /* MainConstants.swift in Sources */,
 				5C17D42E2710C1E200035051 /* OnboardingController.swift in Sources */,
@@ -376,6 +391,7 @@
 				5C17D481271195B000035051 /* Onboarding_3_Cell.swift in Sources */,
 				5C17D4692710D91C00035051 /* MainController.swift in Sources */,
 				5C17D4622710D6E700035051 /* Colors.swift in Sources */,
+				5C17D4882711BB4D00035051 /* QuizCell.swift in Sources */,
 				5C17D4742710E01200035051 /* Onboarding_6_Cell.swift in Sources */,
 				5C17D45D2710C41C00035051 /* UIViewController+Extension.swift in Sources */,
 				5C17D47C27117F3500035051 /* QuizView.swift in Sources */,

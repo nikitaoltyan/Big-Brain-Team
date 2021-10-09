@@ -18,6 +18,10 @@ struct Colors {
     
     static let black = UIColor.black
     
+    
+    static let positive = UIColor(named: "green") ?? UIColor.green
+    static let negative = UIColor(named: "negative") ?? UIColor.red
+    
     // Text & Icons
     static let textPrimary = UIColor(named: "textPrimary") ?? UIColor.black
     static let textSecondary = UIColor(named: "textSecondary") ?? UIColor.gray

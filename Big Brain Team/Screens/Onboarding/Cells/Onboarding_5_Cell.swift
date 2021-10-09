@@ -58,7 +58,7 @@ class Onboarding_5_Cell: UICollectionViewCell {
         button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Продолжить", for: .normal)
-        button.alpha = 0.7
+        button.alpha = 0.3
         return button
     }()
     
@@ -66,6 +66,9 @@ class Onboarding_5_Cell: UICollectionViewCell {
     var isButtonActive = false
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
+    
+//    let shareName: [String] = ["Appl"]
+//    let
     
     override init(frame: CGRect) {
         super.init(frame: frame)

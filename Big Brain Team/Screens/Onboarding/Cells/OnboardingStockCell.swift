@@ -23,7 +23,7 @@ class OnboardingStockCell: UICollectionViewCell {
             .with(color: Colors.textPrimary)
             .with(alignment: .left)
             .with(numberOfLines: 1)
-            .with(fontName: "HelveticaNeue", size: 17)
+            .with(fontName: "HelveticaNeue-Medium", size: 17)
         label.text = "Facebook, Inc."
         return label
     }()

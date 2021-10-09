@@ -60,7 +60,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
         button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Продолжить", for: .normal)
-        button.alpha = 0.7
+        button.alpha = 0.3
         return button
     }()
     

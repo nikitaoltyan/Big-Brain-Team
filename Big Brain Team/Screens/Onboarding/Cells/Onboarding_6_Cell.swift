@@ -63,7 +63,7 @@ class Onboarding_6_Cell: UICollectionViewCell {
         button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Продолжить", for: .normal)
-        button.alpha = 0.7
+        button.alpha = 0.3
         return button
     }()
     
@@ -110,9 +110,14 @@ class Onboarding_6_Cell: UICollectionViewCell {
 
 extension Onboarding_6_Cell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.count ?? 0 > 10 {
+            isButtonActive = true
+            nextButton.alpha = 1
+            return true
+        }
         if textField.text?.count ?? 0 < 11 {
             isButtonActive = false
-            nextButton.alpha = 0.7
+            nextButton.alpha = 0.3
             return true
         } else {
             isButtonActive = true

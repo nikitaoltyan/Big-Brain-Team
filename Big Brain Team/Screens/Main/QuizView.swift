@@ -50,6 +50,8 @@ class QuizView: UIView {
         return button
     }()
     
+    
+    var delegate: mainDelegate?
 
     override init(frame: CGRect) {
         let useFrame = CGRect(x: 0, y: 0, width: 0, height: 318)
@@ -69,7 +71,9 @@ class QuizView: UIView {
     
     @objc
     func buttonAction() {
-        
+        button.tap(completion: { _ in
+            self.delegate?.openQuiz()
+        })
     }
 }
 
