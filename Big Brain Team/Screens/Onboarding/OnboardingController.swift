@@ -108,7 +108,7 @@ extension OnboardingController: onbordingDelegate {
     
     func finish() {
 //        analytics.logFinishOnboarding()
-//        userDefaults.setHasLaunched(true)
+        UserDefaults.standard.set(true, forKey: "hasLaunched")
         let newVC = MainController()
         newVC.modalPresentationStyle = .fullScreen
         present(newVC, animated: true, completion: nil)

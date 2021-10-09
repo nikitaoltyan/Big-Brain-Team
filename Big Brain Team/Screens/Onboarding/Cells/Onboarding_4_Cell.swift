@@ -49,7 +49,7 @@ class Onboarding_4_Cell: UICollectionViewCell {
             .with(color: Colors.textSecondary)
             .with(alignment: .left)
             .with(numberOfLines: 1)
-            .with(fontName: "HelveticaNeue-Bold", size: 13)
+            .with(fontName: "HelveticaNeue", size: 13)
         label.text = "Без номера мы не сможем подарить акцию"
         return label
     }()
