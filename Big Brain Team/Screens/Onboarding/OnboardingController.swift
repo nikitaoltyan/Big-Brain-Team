@@ -10,8 +10,10 @@ import UIKit
 protocol onbordingDelegate {
     func next(slide: Int)
     func finish()
-    func addInterest(_ interest: String)
-    func addShare(_ share: [String])
+    func addExperinece(_ exp: Int)
+    func addTarget(_ target: Double)
+    func addBalance(_ balance: Int)
+    func addShare(_ share: [(String, ShareRisk, ShareSphere)])
     func addPhone(_ phoneNumber: String)
     func endEditing()}
 
@@ -19,6 +21,7 @@ protocol onbordingDelegate {
 class OnboardingController: UIViewController {
     
     let analytic = ServerAnalytics()
+    let userDefaults = Defaults()
     
     lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -55,17 +58,51 @@ class OnboardingController: UIViewController {
         pager.isHidden = true
         return pager
     }()
+    
+    var shares: [(String, ShareRisk, ShareSphere)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         analytic.logStartOnboarding()
         hideKeyboardWhenTappedAround()
         view.backgroundColor = Colors.primary1
+        AppTransparency().requestPermission()
         setSubviews()
         activateLayouts()
     }
 
 
+    
+    private
+    func preprocessAnswers(shares: [(String, ShareRisk, ShareSphere)]) -> ([Share], Portfel) {
+        var riskCount = 0
+        var resultShares: [Share] = []
+        var spheres: Set<ShareSphere> = []
+        for share in shares {
+            let (name, risk, sphere) = share
+            if risk == .risk { riskCount += 1}
+            resultShares.append(Share(name: name, risk: risk))
+            spheres.insert(sphere)
+        }
+        
+        let divers: PortfelDiversification = {
+            if shares.count == 3 {
+                return .diversified
+            } else {
+                return .notDiversified
+            }
+        }()
+        
+        let risk: PortfelRisk = {
+            if riskCount > 2 {
+                return .risk
+            } else {
+                return .notRisk
+            }
+        }()
+        let portfel = Portfel(divers: divers, risk: risk)
+        return (resultShares, portfel)
+    }
 }
 
 
@@ -141,17 +178,26 @@ extension OnboardingController: onbordingDelegate {
         UserDefaults.standard.set(true, forKey: "hasLaunched")
         let newVC = QuizController()
         newVC.modalPresentationStyle = .fullScreen
+        let (shares, portfel) = preprocessAnswers(shares: self.shares)
+        newVC.shares = shares
+        newVC.portfel = portfel
         present(newVC, animated: true, completion: nil)
     }
     
-    func addInterest(_ interest: String) {
-        // TODO:
-        // Add interest
+    func addExperinece(_ exp: Int) {
+        userDefaults.setExpirience(exp)
     }
     
-    func addShare(_ share: [String]) {
-        // TODO:
-        // Add share
+    func addBalance(_ balance: Int) {
+        userDefaults.setStartBalance(balance)
+    }
+    
+    func addTarget(_ target: Double) {
+        userDefaults.setWinningTarget(target)
+    }
+    
+    func addShare(_ share: [(String, ShareRisk, ShareSphere)]) {
+        self.shares = share
     }
     
     func addPhone(_ phoneNumber: String) {

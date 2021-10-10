@@ -9,6 +9,9 @@ import UIKit
 
 class QuizController: UIViewController {
     
+    let userDefaults = Defaults()
+    let server = Server()
+    
     let scrollView: UIScrollView = {
         let scroll = UIScrollView()
             .with(autolayout: false)
@@ -38,7 +41,6 @@ class QuizController: UIViewController {
             .with(alignment: .center)
             .with(numberOfLines: 1)
             .with(fontName: "HelveticaNeue-Medium", size: 20)
-        label.text = "100 000 ₽"
         return label
     }()
     
@@ -72,14 +74,12 @@ class QuizController: UIViewController {
             .with(alignment: .left)
             .with(numberOfLines: 0)
             .with(fontName: "HelveticaNeue-Medium", size: 20)
-        label.text = "Стоимость акций Apple упала на 10% за неделю. Что будешь делать?"
         return label
     }()
     
     let chart: UIImageView = {
         let image = UIImageView()
             .with(autolayout: false)
-        image.image = UIImage(named: "chart")
         return image
     }()
 
@@ -88,8 +88,8 @@ class QuizController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
             .with(autolayout: false)
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 12
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
         
         collection.isPagingEnabled = false
         collection.isScrollEnabled = false
@@ -120,15 +120,26 @@ class QuizController: UIViewController {
     var isAnswersShown = false
     var currentSelectedIndexPath: IndexPath?
     var collectionHeightConstraint: NSLayoutConstraint?
+    var numberOfMoves = 5
     
-    let answers = ["Продам всё", "Куплю ещё акций", "Продам часть", "Подожду"]
-    let rightCell = [false, false, false, true]
+    var shares: [Share] = []
+    var portfel: Portfel?
+    
+    let answers = ["Продам всё", "Купить ещё", "Подожду"]
+    var rightCell = [false, false, true]
+    
+    var sell_coef: Double = 0
+    var wait_coef: Double = 0
+    var afterAnswerImage: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userDefaults.setStartBalance(150000)
         view.backgroundColor = Colors.primary1
+        currentMoney.text = "\(userDefaults.getBalance()) ₽"
         setSubviews()
         activateLayout()
+        loadQuestion()
     }
 
     
@@ -157,8 +168,7 @@ class QuizController: UIViewController {
         Vibration.soft()
         nextButton.tap(completion: { _ in
             guard !self.isAnswersShown else {
-//                self.openLoseController()
-                self.openWinController()
+                self.nextQuestion()
                 return
             }
             
@@ -166,13 +176,21 @@ class QuizController: UIViewController {
             self.collection.isUserInteractionEnabled = false
             self.nextButton.setTitle("Следующий вопрос", for: .normal)
             
+            print("Следующий вопрос set button")
+            DispatchQueue.main.async {
+                self.chart.downloadImage(from: self.afterAnswerImage)
+            }
+            
             if let index = self.rightCell.firstIndex(of: true) {
                 if self.currentSelectedIndexPath?.row != index {
-                    self.collectionHeightConstraint?.constant = 300
+                    self.badAnswerAction(forIndex: self.currentSelectedIndexPath?.row ?? 0)
+                    self.collectionHeightConstraint?.constant = 265
                     self.collection.layoutIfNeeded()
                     self.nextButton.layoutIfNeeded()
                     self.scrollView.contentSize = CGSize(width: MainConstants.screenWidth,
                                                          height: MainConstants.screenHeight + 60)
+                } else {
+                    self.goodAnswerAction(forIndex: self.currentSelectedIndexPath?.row ?? 0)
                 }
             }
             self.collection.reloadData()
@@ -192,6 +210,131 @@ class QuizController: UIViewController {
         newVC.modalPresentationStyle = .fullScreen
         self.present(newVC, animated: true, completion: nil)
     }
+    
+    
+    private
+    func goodAnswerAction(forIndex index: Int) {
+        print("goodAnswerAction")
+        var coef: Double = 1
+        switch index {
+        case 0:
+            coef = sell_coef
+        case 1:
+            coef = wait_coef + 0.1
+        default:
+            coef = wait_coef
+        }
+        
+        let balance = Double(userDefaults.getBalance())
+        print("balance: \(balance)")
+        let newBalance = balance*coef
+        print("newBalance: \(newBalance)")
+        userDefaults.changeBalance(Int(newBalance)) // Add balance
+        currentMoney.text = "\(Int(newBalance)) ₽"
+        currentMoney.textColor = Colors.positive
+        
+        if coef-1 > 0 {
+            currentMoney.textColor = Colors.positive
+        } else {
+            currentMoney.textColor = Colors.negative
+        }
+    }
+    
+    private
+    func badAnswerAction(forIndex index: Int) {
+        // coef - David's coef for that answer
+        var coef: Double = 1
+        switch index {
+        case 0:
+            coef = sell_coef
+        case 1:
+            coef = wait_coef + 0.1
+        default:
+            coef = wait_coef
+        }
+        let balance = Double(userDefaults.getBalance())
+        print("balance: \(balance)")
+        let newBalance = balance*coef
+        print("newBalance: \(newBalance)")
+        userDefaults.changeBalance(Int(newBalance)) // remove from balance
+        currentMoney.text = "\(Int(newBalance)) ₽"
+        print("currentMoney: \(Int(newBalance))")
+        if coef-1 > 0 {
+            currentMoney.textColor = Colors.positive
+        } else {
+            currentMoney.textColor = Colors.negative
+        }
+    }
+    
+    private
+    func nextQuestion() {
+        print("nextQuestion")
+        isButtonActive = false
+        isAnswersShown = false
+        currentMoney.textColor = Colors.textPrimary
+        currentSelectedIndexPath = nil
+        collection.isUserInteractionEnabled = true
+        collectionHeightConstraint?.constant = 200
+        collection.layoutIfNeeded()
+        nextButton.layoutIfNeeded()
+        self.scrollView.contentSize = CGSize(width: MainConstants.screenWidth,
+                                             height: MainConstants.screenHeight)
+        loadQuestion()
+    }
+    
+    private
+    func finish() {
+        print("finish")
+        let start = userDefaults.getStartBalance()
+        let current = userDefaults.getBalance()
+        let coef = userDefaults.getWinningTarget()
+        
+        if Double(start) * coef > Double(current) {
+            openWinController()
+        } else {
+            openLoseController()
+        }
+    }
+    
+    private
+    func loadQuestion() {
+        print("loadQuestion")
+        guard numberOfMoves > 0 else {
+            finish()
+            return
+        }
+        numberOfMoves -= 1
+        
+        // half_difference - если продал
+        // difference - если подождал
+        // difference + random - если докупил
+        
+        server.fetchData(forRisk: portfel?.risk ?? .notRisk,
+                         andDiv: portfel?.difersification ?? .notDiversified,
+                         completion: { (data, error) in
+            print("Got data: \(data)")
+            guard error == nil else { return }
+            self.afterAnswerImage = data!["img_path"] as? String ?? ""
+            DispatchQueue.main.async {
+                self.chart.downloadImage(from: data!["half_img_path"] as? String ?? "")
+            }
+            
+            self.sell_coef = data!["half_difference"] as? Double ?? 1.0
+            self.wait_coef = data!["difference"] as? Double ?? 1.0
+            
+            let rightAnswerIndex: Int = data!["right_answer"] as? Int ?? 1
+            var arr = [false, false, false]
+            arr[rightAnswerIndex] = true
+            self.rightCell = arr
+            
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+                let coef = 1-self.sell_coef
+                self.qustionTitle.text = "Стоимость акций \(self.shares.randomElement()?.name ?? "Apple") изменилась на \(Int((coef*100).rounded()))% за неделю. Что будешь делать?"
+            }
+        })
+        
+    }
 }
 
 
@@ -202,16 +345,18 @@ class QuizController: UIViewController {
 extension QuizController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("answers: \(answers)")
         return answers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if !isButtonActive {
-            return CGSize(width: MainConstants.screenWidth-50, height: 48)
+            return CGSize(width: MainConstants.screenWidth-50, height: 56)
         } else {
             if currentSelectedIndexPath != indexPath {
-                return CGSize(width: MainConstants.screenWidth-50, height: 48)
+                return CGSize(width: MainConstants.screenWidth-50, height: 56)
             } else {
+                print("set 118 height")
                 return CGSize(width: MainConstants.screenWidth-50, height: 118)
             }
         }
@@ -224,6 +369,9 @@ extension QuizController: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.setCell(isCellRight: rightCell[indexPath.row],
                      isTapped: isTapped,
                      isAnswersShown: self.isAnswersShown)
+        // TODO
+        // set losed money here
+//        cell.setLosedMoney(<#T##money: Double##Double#>)
         return cell
     }
     
@@ -304,7 +452,7 @@ extension QuizController {
             nextButton.heightAnchor.constraint(equalToConstant: 56),
         ])
         
-        collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 230)
+        collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 200)
         collectionHeightConstraint?.isActive = true
     }
 }

@@ -67,6 +67,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
     
     let cellTitles = ["Защитить деньги от инфляции", "Накопить деньги", "Высокую доходность"]
     let cellSubtitles = ["Хочу, чтобы они не обесценивались", "Буду инвестировать все свободные средства и немного рисковать", "Готов сильно рисковать и понимаю, что могу потерять деньги"]
+//    [1.07, 1.3, 1.5]
     var isButtonActive = false
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
@@ -87,7 +88,11 @@ class Onboarding_3_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addInterest(<#T##interest: Int##Int#>)
+            switch self.currentSelectedIndexPath?.row ?? 0 {
+            case 1: self.delegate?.addTarget(1.3)
+            case 2: self.delegate?.addTarget(1.5)
+            default: self.delegate?.addTarget(1.07)
+            }
             self.delegate?.next(slide: 3)
         })
     }

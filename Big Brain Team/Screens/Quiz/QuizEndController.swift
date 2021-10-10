@@ -52,14 +52,14 @@ class QuizEndController: UIViewController {
         return image
     }()
     
-    let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
             .with(autolayout: false)
             .with(color: Colors.textPrimary)
             .with(alignment: .left)
             .with(numberOfLines: 0)
             .with(fontName: "HelveticaNeue-Bold", size: 28)
-        label.text = "Ты проиграл, потеряв 100 000 ₽"
+        label.text = "Ты проиграл, потеряв \(Defaults().getStartBalance()) ₽"
         return label
     }()
     

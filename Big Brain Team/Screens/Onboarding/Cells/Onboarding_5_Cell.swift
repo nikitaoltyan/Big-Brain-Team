@@ -67,14 +67,27 @@ class Onboarding_5_Cell: UICollectionViewCell {
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
     
-    let shareName: [String] = ["Facebook Inc", "Alphabet Inc Class A", "Netflix Inc", "Amazon", "Tesla", "Microsoft"]
-    let sharePercent: [String] = ["20%", "10%", "5%", "16%", "40%", "17%"]
+    var selectedIndexes: Set<IndexPath> = []
+    
+    let shareName: [String] = ["Facebook Inc", "Google", "Netflix Inc", "Pfizer", "Amazon", "Microsoft", "Johnson & Johnson", "Barclays PLC", "Société Générale", "Citigroup Inc.", "Astrazeneca", "Moderna", "Zoetis Inc.",  "Morgan Stanley", "Goldman Sachs"]
+    let risk: [ShareRisk] = [.risk, .normal, .risk, .risk, .normal, .risk, .normal, .normal, .normal, .normal, .normal, .risk, .normal, .normal, .normal]
+    let sphere: [ShareSphere] = [.technology, .technology, .technology, .healthcare, .technology, .healthcare, .banks, .banks, .banks, .healthcare, .healthcare, .healthcare, .healthcare, .banks, .banks]
+    let sharePercent: [String] = ["20%", "10%", "5%", "16%", "40%", "17%", "20%", "10%", "5%", "16%", "40%", "17%", "14%", "2%", "19%"]
     let shareImage: [UIImage?] = [UIImage(named: "1"),
                                  UIImage(named: "2"),
                                  UIImage(named: "3"),
                                  UIImage(named: "4"),
-                                 UIImage(named: "5"),
-                                 UIImage(named: "6")]
+                                UIImage(named: "5"),
+                                 UIImage(named: "6"),
+                                  UIImage(named: "7"),
+                                  UIImage(named: "8"),
+                                  UIImage(named: "10"),
+                                  UIImage(named: "9"),
+                                  UIImage(named: "15"),
+                                  UIImage(named: "14"),
+                                  UIImage(named: "13"),
+                                  UIImage(named: "11"),
+                                  UIImage(named: "12")]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,7 +105,10 @@ class Onboarding_5_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addShare(<#T##share: Int##Int#>)
+            
+            
+            let arr = self.preprocess()
+            self.delegate?.addShare(arr)
             self.delegate?.next(slide: 5)
         })
     }
@@ -102,6 +118,25 @@ class Onboarding_5_Cell: UICollectionViewCell {
         backButton.tap(completion: { _ in
             self.delegate?.next(slide: 3)
         })
+    }
+    
+    private
+    func activateButton() {
+        guard selectedIndexes.count > 3 else { return }
+        isButtonActive = true
+        nextButton.alpha = 1
+    }
+    
+    private
+    func preprocess() -> [(String, ShareRisk, ShareSphere)] {
+        var resultArray: [(String, ShareRisk, ShareSphere)] = []
+        let arr = Array(self.selectedIndexes)
+        for index in arr {
+            resultArray.append(
+                (shareName[index.row], risk[index.row], sphere[index.row])
+            )
+        }
+        return resultArray
     }
 }
 
@@ -130,17 +165,19 @@ extension Onboarding_5_Cell: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Vibration.soft()
-        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingStockCell {
-            cell.unselect()
-        }
-        
-        if let cell = collection.cellForItem(at: indexPath) as? OnboardingStockCell {
-            cell.select()
-            isButtonActive = true
-            nextButton.alpha = 1
-            // TODO:
-            // Add here some action for selected answer.
-            currentSelectedIndexPath = indexPath
+        if selectedIndexes.contains(indexPath) {
+            
+            if let cell = collection.cellForItem(at: indexPath) as? OnboardingStockCell {
+                cell.unselect()
+            }
+            selectedIndexes.remove(indexPath)
+            
+        } else {
+            if let cell = collection.cellForItem(at: indexPath) as? OnboardingStockCell {
+                cell.select()
+                activateButton()
+            }
+            selectedIndexes.insert(indexPath)
         }
     }
     

@@ -98,7 +98,15 @@ class Onboarding_4_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addInterest(<#T##interest: Int##Int#>)
+            let index = self.currentSelectedIndexPath?.row ?? 0
+            switch index {
+            case 1: self.delegate?.addBalance(35000)
+            case 2: self.delegate?.addBalance(75000)
+            case 3: self.delegate?.addBalance(125000)
+            case 4: self.delegate?.addBalance(175000)
+            case 5: self.delegate?.addBalance(200000)
+            default: self.delegate?.addBalance(20000)
+            }
             self.delegate?.next(slide: 4)
         })
     }

@@ -10,7 +10,7 @@ import UIKit
 class QuizCell: UICollectionViewCell {
     
     let viewBG: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 48))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 56))
             .with(autolayout: false)
             .with(bgColor: Colors.primary1)
             .with(borderWidth: 1, color: UIColor.black.withAlphaComponent(0.08).cgColor)
@@ -36,7 +36,7 @@ class QuizCell: UICollectionViewCell {
             .with(alignment: .left)
             .with(numberOfLines: 1)
             .with(fontName: "HelveticaNeue-Medium", size: 14)
-        label.text = "Ты потерял 10 000 ₽"
+        label.text = "Ты потерял деньги"
         return label
     }()
     
@@ -53,6 +53,7 @@ class QuizCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("cell init")
         self.backgroundColor = Colors.primary1
         setSubviews()
         activateLayouts()
@@ -77,6 +78,8 @@ class QuizCell: UICollectionViewCell {
         guard shown else {
             loseLabel.isHidden = true
             loseExplainLabel.isHidden = true
+            viewBG.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
+            title.textColor = Colors.textPrimary
             return
         }
         
@@ -107,6 +110,9 @@ class QuizCell: UICollectionViewCell {
         }
     }
     
+    func setLosedMoney(_ money: Double) {
+        loseLabel.text = "Ты потерял \(money) ₽"
+    }
 }
 
 

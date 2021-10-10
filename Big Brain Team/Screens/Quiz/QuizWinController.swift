@@ -60,7 +60,7 @@ class QuizWinController: UIViewController {
             .with(alignment: .left)
             .with(numberOfLines: 0)
             .with(fontName: "HelveticaNeue-Bold", size: 28)
-        label.text = "Ты выйграл акцию в ВТБ Инвестициях"
+        label.text = "Ты выиграл акцию в ВТБ Инвестициях"
         return label
     }()
     
@@ -124,7 +124,9 @@ class QuizWinController: UIViewController {
     @objc
     func openAppAction() {
         openAppButton.tap(completion: { _ in
-            
+            if let url = URL(string: "itms-apps://apple.com/app/id1364026756") {
+                UIApplication.shared.open(url)
+            }
         })
     }
     

@@ -38,6 +38,13 @@
 		5C17D48A2711D30800035051 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C17D4892711D30700035051 /* GoogleService-Info.plist */; };
 		5CCEADE627122D4C000B5026 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CCEADE527122D4C000B5026 /* confetti.json */; };
 		5CFFA255271291360072B7F6 /* OnboardingTextDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA254271291360072B7F6 /* OnboardingTextDescCell.swift */; };
+		5CFFA25727129C5A0072B7F6 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA25627129C5A0072B7F6 /* Defaults.swift */; };
+		5CFFA2592712A5AD0072B7F6 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA2582712A5AD0072B7F6 /* UIImageView+Extension.swift */; };
+		5CFFA25B2712AEFF0072B7F6 /* ShareRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA25A2712AEFF0072B7F6 /* ShareRisk.swift */; };
+		5CFFA25D2712B2F60072B7F6 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA25C2712B2F60072B7F6 /* Share.swift */; };
+		5CFFA25F2712B3D90072B7F6 /* Portfel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA25E2712B3D90072B7F6 /* Portfel.swift */; };
+		5CFFA2612712BC340072B7F6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA2602712BC340072B7F6 /* Server.swift */; };
+		5CFFA2632712BE790072B7F6 /* AppTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA2622712BE790072B7F6 /* AppTransparency.swift */; };
 		9A2BBF9A21679DB755EA7F9E /* Pods_Big_Brain_Team.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F178E2DE1933710FD2F3D97 /* Pods_Big_Brain_Team.framework */; };
 		C77DB4770864FEEBC1CA3A95 /* Pods_Big_Brain_TeamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E060B00F71409F76B0D2641 /* Pods_Big_Brain_TeamTests.framework */; };
 		E49A78A1BDD8E2491802CD22 /* Pods_Big_Brain_Team_Big_Brain_TeamUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991EE394BA04ECC917B9E812 /* Pods_Big_Brain_Team_Big_Brain_TeamUITests.framework */; };
@@ -98,6 +105,13 @@
 		5C17D4892711D30700035051 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CCEADE527122D4C000B5026 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		5CFFA254271291360072B7F6 /* OnboardingTextDescCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTextDescCell.swift; sourceTree = "<group>"; };
+		5CFFA25627129C5A0072B7F6 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		5CFFA2582712A5AD0072B7F6 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		5CFFA25A2712AEFF0072B7F6 /* ShareRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRisk.swift; sourceTree = "<group>"; };
+		5CFFA25C2712B2F60072B7F6 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
+		5CFFA25E2712B3D90072B7F6 /* Portfel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfel.swift; sourceTree = "<group>"; };
+		5CFFA2602712BC340072B7F6 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		5CFFA2622712BE790072B7F6 /* AppTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTransparency.swift; sourceTree = "<group>"; };
 		6BE36B521A6348CD8D966B6E /* Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig"; path = "Target Support Files/Pods-Big Brain Team-Big Brain TeamUITests/Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F178E2DE1933710FD2F3D97 /* Pods_Big_Brain_Team.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Big_Brain_Team.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		729C1D47FF5E573ED32194F4 /* Pods-Big Brain TeamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Big Brain TeamTests.release.xcconfig"; path = "Target Support Files/Pods-Big Brain TeamTests/Pods-Big Brain TeamTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +223,7 @@
 				5C17D45C2710C41C00035051 /* UIViewController+Extension.swift */,
 				5C17D46D2710DACD00035051 /* UILabel+Extension.swift */,
 				5C17D479271175D000035051 /* UITextField+Extension.swift */,
+				5CFFA2582712A5AD0072B7F6 /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,6 +234,12 @@
 				5C17D45F2710C52500035051 /* Vibration.swift */,
 				5C17D4612710D6E700035051 /* Colors.swift */,
 				5C17D4632710D74900035051 /* MainConstants.swift */,
+				5CFFA25627129C5A0072B7F6 /* Defaults.swift */,
+				5CFFA25A2712AEFF0072B7F6 /* ShareRisk.swift */,
+				5CFFA25C2712B2F60072B7F6 /* Share.swift */,
+				5CFFA25E2712B3D90072B7F6 /* Portfel.swift */,
+				5CFFA2602712BC340072B7F6 /* Server.swift */,
+				5CFFA2622712BE790072B7F6 /* AppTransparency.swift */,
 			);
 			path = "Main Constants";
 			sourceTree = "<group>";
@@ -531,16 +552,22 @@
 			files = (
 				5C17D483271195C200035051 /* Onboarding_4_Cell.swift in Sources */,
 				5C17D46E2710DACD00035051 /* UILabel+Extension.swift in Sources */,
+				5CFFA25B2712AEFF0072B7F6 /* ShareRisk.swift in Sources */,
+				5CFFA2592712A5AD0072B7F6 /* UIImageView+Extension.swift in Sources */,
 				5C17D4852711B11A00035051 /* QuizController.swift in Sources */,
 				5C17D4722710E00500035051 /* Onboarding_5_Cell.swift in Sources */,
 				5C17D4642710D74900035051 /* MainConstants.swift in Sources */,
 				5C17D42E2710C1E200035051 /* OnboardingController.swift in Sources */,
 				5C17D46C2710DA8C00035051 /* Onboarding_1_Cell.swift in Sources */,
+				5CFFA25F2712B3D90072B7F6 /* Portfel.swift in Sources */,
+				5CFFA2612712BC340072B7F6 /* Server.swift in Sources */,
+				5CFFA25D2712B2F60072B7F6 /* Share.swift in Sources */,
 				5C17D42A2710C1E200035051 /* AppDelegate.swift in Sources */,
 				5C17D47F271187C300035051 /* Analytics.swift in Sources */,
 				5C17D45B2710C3B300035051 /* UIView+Extension.swift in Sources */,
 				5C17D481271195B000035051 /* Onboarding_3_Cell.swift in Sources */,
 				5C17D4622710D6E700035051 /* Colors.swift in Sources */,
+				5CFFA25727129C5A0072B7F6 /* Defaults.swift in Sources */,
 				5C08B5062712216900F3FE80 /* QuizEndController.swift in Sources */,
 				5C17D4882711BB4D00035051 /* QuizCell.swift in Sources */,
 				5C08B5082712293500F3FE80 /* QuizWinController.swift in Sources */,
@@ -548,6 +575,7 @@
 				5C17D45D2710C41C00035051 /* UIViewController+Extension.swift in Sources */,
 				5C17D4782711580D00035051 /* OnboardingStockCell.swift in Sources */,
 				5C17D4702710DFF200035051 /* Onboarding_2_Cell.swift in Sources */,
+				5CFFA2632712BE790072B7F6 /* AppTransparency.swift in Sources */,
 				5C17D4602710C52500035051 /* Vibration.swift in Sources */,
 				5C17D47627114A6B00035051 /* OnboardingTextCell.swift in Sources */,
 				5C17D42C2710C1E200035051 /* SceneDelegate.swift in Sources */,

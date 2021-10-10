@@ -85,7 +85,7 @@ class Onboarding_2_Cell: UICollectionViewCell {
     func nextAction() {
         guard isButtonActive else { return }
         nextButton.tap(completion: { _ in
-//            self.delegate?.addInterest(<#T##interest: Int##Int#>)
+            self.delegate?.addExperinece(self.currentSelectedIndexPath?.row ?? 0)
             self.delegate?.next(slide: 2)
         })
     }
