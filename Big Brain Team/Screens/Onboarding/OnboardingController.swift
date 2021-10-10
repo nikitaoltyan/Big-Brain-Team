@@ -13,8 +13,7 @@ protocol onbordingDelegate {
     func addInterest(_ interest: String)
     func addShare(_ share: [String])
     func addPhone(_ phoneNumber: String)
-    func endEditing()
-}
+    func endEditing()}
 
 
 class OnboardingController: UIViewController {
@@ -44,6 +43,17 @@ class OnboardingController: UIViewController {
         collection.register(Onboarding_6_Cell.self, forCellWithReuseIdentifier: "Onboarding_6_Cell")
         
         return collection
+    }()
+    
+    let pager: UIPageControl = {
+        let pager = UIPageControl()
+            .with(bgColor: .clear)
+            .with(autolayout: false)
+        pager.numberOfPages = 5
+        pager.currentPageIndicatorTintColor = Colors.textSecondary
+        pager.pageIndicatorTintColor = Colors.textSecondary.withAlphaComponent(0.3)
+        pager.isHidden = true
+        return pager
     }()
 
     override func viewDidLoad() {
@@ -112,11 +122,18 @@ extension OnboardingController: UICollectionViewDelegate, UICollectionViewDataSo
 extension OnboardingController: onbordingDelegate {
     func next(slide: Int) {
         Vibration.soft()
+        pager.currentPage = slide-1
         collection.isPagingEnabled = true
         let indexPath = IndexPath(item: slide, section: 0)
         collection.scrollToItem(at: indexPath, at: .right, animated: true)
         collection.isPagingEnabled = false
         collection.reloadItems(at: [IndexPath(item: slide, section: 0)])
+        
+        if slide == 0 {
+            pager.isHidden = true
+        } else {
+            pager.isHidden = false
+        }
     }
     
     func finish() {
@@ -161,6 +178,7 @@ extension OnboardingController {
     private
     func setSubviews(){
         view.addSubview(collection)
+        view.addSubview(pager)
     }
     
     private
@@ -169,7 +187,10 @@ extension OnboardingController {
             collection.topAnchor.constraint(equalTo: view.topAnchor),
             collection.leftAnchor.constraint(equalTo: view.leftAnchor),
             collection.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collection.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            pager.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -115),
+            pager.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 }

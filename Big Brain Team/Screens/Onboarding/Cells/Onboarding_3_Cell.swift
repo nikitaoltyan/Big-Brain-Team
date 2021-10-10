@@ -35,7 +35,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
             .with(autolayout: false)
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 12
+        layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
@@ -46,7 +46,7 @@ class Onboarding_3_Cell: UICollectionViewCell {
         collection.delegate = self
         collection.dataSource = self
         
-        collection.register(OnboardingTextCell.self, forCellWithReuseIdentifier: "OnboardingTextCell")
+        collection.register(OnboardingTextDescCell.self, forCellWithReuseIdentifier: "OnboardingTextDescCell")
         
         return collection
     }()
@@ -65,7 +65,8 @@ class Onboarding_3_Cell: UICollectionViewCell {
     }()
     
     
-    let cells = ["Накопить денег", "Спекулировать", "Избегать инфляцию", "Зарабатывать"]
+    let cellTitles = ["Защитить деньги от инфляции", "Накопить деньги", "Высокую доходность"]
+    let cellSubtitles = ["Хочу, чтобы они не обесценивались", "Буду инвестировать все свободные средства и немного рисковать", "Готов сильно рисковать и понимаю, что могу потерять деньги"]
     var isButtonActive = false
     var currentSelectedIndexPath: IndexPath?
     var delegate: onbordingDelegate?
@@ -104,26 +105,33 @@ class Onboarding_3_Cell: UICollectionViewCell {
 
 
 
-extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Onboarding_3_Cell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cells.count
+        return cellTitles.count
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        switch indexPath.row {
+//        case 0: return CGSize(width: MainConstants.screenWidth-40, height: 66)
+//        default: return CGSize(width: MainConstants.screenWidth-40, height: 82)
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingTextCell", for: indexPath) as! OnboardingTextCell
-        cell.title.text = cells[indexPath.row]
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: "OnboardingTextDescCell", for: indexPath) as! OnboardingTextDescCell
+        cell.title.text = cellTitles[indexPath.row]
+        cell.subtitle.text = cellSubtitles[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Vibration.soft()
-        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingTextCell {
+        if let cell = collection.cellForItem(at: currentSelectedIndexPath ?? indexPath) as? OnboardingTextDescCell {
             cell.unselect()
         }
         
-        if let cell = collection.cellForItem(at: indexPath) as? OnboardingTextCell {
+        if let cell = collection.cellForItem(at: indexPath) as? OnboardingTextDescCell {
             cell.select()
             isButtonActive = true
             nextButton.alpha = 1
@@ -165,8 +173,8 @@ extension Onboarding_3_Cell {
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -24),
             
             collection.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 32),
-            collection.leftAnchor.constraint(equalTo: title.leftAnchor),
-            collection.rightAnchor.constraint(equalTo: title.rightAnchor),
+            collection.leftAnchor.constraint(equalTo: title.leftAnchor,constant: -4),
+            collection.rightAnchor.constraint(equalTo: title.rightAnchor, constant: 4),
             collection.heightAnchor.constraint(equalToConstant: 400),
             
             nextButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50),

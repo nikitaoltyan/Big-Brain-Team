@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
             if (hasLaunched) {
-                window.rootViewController = QuizController()
-//                window.rootViewController = OnboardingController()
+//                window.rootViewController = QuizController()
+                window.rootViewController = OnboardingController()
             } else {
                 window.rootViewController = OnboardingController()
             }

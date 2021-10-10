@@ -37,6 +37,7 @@
 		5C17D4882711BB4D00035051 /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17D4872711BB4C00035051 /* QuizCell.swift */; };
 		5C17D48A2711D30800035051 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C17D4892711D30700035051 /* GoogleService-Info.plist */; };
 		5CCEADE627122D4C000B5026 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CCEADE527122D4C000B5026 /* confetti.json */; };
+		5CFFA255271291360072B7F6 /* OnboardingTextDescCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFFA254271291360072B7F6 /* OnboardingTextDescCell.swift */; };
 		9A2BBF9A21679DB755EA7F9E /* Pods_Big_Brain_Team.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F178E2DE1933710FD2F3D97 /* Pods_Big_Brain_Team.framework */; };
 		C77DB4770864FEEBC1CA3A95 /* Pods_Big_Brain_TeamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E060B00F71409F76B0D2641 /* Pods_Big_Brain_TeamTests.framework */; };
 		E49A78A1BDD8E2491802CD22 /* Pods_Big_Brain_Team_Big_Brain_TeamUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991EE394BA04ECC917B9E812 /* Pods_Big_Brain_Team_Big_Brain_TeamUITests.framework */; };
@@ -96,6 +97,7 @@
 		5C17D4872711BB4C00035051 /* QuizCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCell.swift; sourceTree = "<group>"; };
 		5C17D4892711D30700035051 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CCEADE527122D4C000B5026 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		5CFFA254271291360072B7F6 /* OnboardingTextDescCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTextDescCell.swift; sourceTree = "<group>"; };
 		6BE36B521A6348CD8D966B6E /* Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig"; path = "Target Support Files/Pods-Big Brain Team-Big Brain TeamUITests/Pods-Big Brain Team-Big Brain TeamUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F178E2DE1933710FD2F3D97 /* Pods_Big_Brain_Team.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Big_Brain_Team.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		729C1D47FF5E573ED32194F4 /* Pods-Big Brain TeamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Big Brain TeamTests.release.xcconfig"; path = "Target Support Files/Pods-Big Brain TeamTests/Pods-Big Brain TeamTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				5C17D4712710E00500035051 /* Onboarding_5_Cell.swift */,
 				5C17D4732710E01200035051 /* Onboarding_6_Cell.swift */,
 				5C17D47527114A6B00035051 /* OnboardingTextCell.swift */,
+				5CFFA254271291360072B7F6 /* OnboardingTextDescCell.swift */,
 				5C17D4772711580D00035051 /* OnboardingStockCell.swift */,
 			);
 			path = Cells;
@@ -548,6 +551,7 @@
 				5C17D4602710C52500035051 /* Vibration.swift in Sources */,
 				5C17D47627114A6B00035051 /* OnboardingTextCell.swift in Sources */,
 				5C17D42C2710C1E200035051 /* SceneDelegate.swift in Sources */,
+				5CFFA255271291360072B7F6 /* OnboardingTextDescCell.swift in Sources */,
 				5C17D47A271175D000035051 /* UITextField+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
