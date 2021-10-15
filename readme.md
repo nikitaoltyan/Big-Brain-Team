@@ -5,9 +5,9 @@ The app is created during the hackoton session.
 The task was to create an app with the game with the easy explanation of main investment and trading terms, other features.
 
 ## Photos
-<img src="./assets/photo_1.jpg" width = "30%"></img>
-<img src="./assets/photo_2.jpg" width = "30%"></img>
-<img src="./assets/photo_3.jpg" width = "30%"></img>
+<img src="./assets/photo_1.png" width = "30%"></img>
+<img src="./assets/photo_2.png" width = "30%"></img>
+<img src="./assets/photo_3.png" width = "30%"></img>
 
 ## Backend
 The backend was wraped on Heroku web-service.
